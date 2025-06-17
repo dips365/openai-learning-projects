@@ -1,55 +1,72 @@
-# Multi-Agent AI Assistant using OpenAI SDK
+# Multi-Agent Routing Proof of Concept
 
-This project demonstrates a **multi-agent architecture** using the OpenAI SDK (supports both **OpenAI API** and **Azure OpenAI**). It classifies user queries and routes them to specialized agents that provide relevant responses.
+This project demonstrates a multi-agent AI assistant that uses the OpenAI SDK (supports both OpenAI API and Azure OpenAI) to classify user queries and route them to specialized agents for relevant responses.
 
-## 📌 Features
+## Features
 
-- 🔄 **Automatic Agent Selection**: Based on user input, the assistant selects one of the following specialized agents:
-  - 🌍 **PlaceInfoAgent**: Travel, countries, geography
-  - 🎮 **GameInfoAgent**: Games, video games, rules
-  - 💻 **TechInfoAgent**: Technology, programming, gadgets
+- **Automatic Agent Selection:**  
+  The assistant classifies user queries into one of three categories and routes them to the appropriate agent:
+  - 🌍 **PlaceInfoAgent:** Expert in places, travel, countries, and geography.
+  - 🎮 **GameInfoAgent:** Expert in video games, board games, and their rules.
+  - 💻 **TechInfoAgent:** Expert in technology, programming, and gadgets.
 
-- ✅ **Supports Azure OpenAI or OpenAI API**
-- 🛡️ Secure API key management with `.env` and `python-dotenv`
+- **Supports Azure OpenAI and OpenAI API**
+- **Secure API key management** using `.env` and `python-dotenv`
 
----
+## Project Structure
 
-## 📂 Project Structure
-
-multi-agent-ai-assistant/
-├── agents.py # Main code with agents and routing
-├── .env # Environment variables (not tracked in git)
+multi-agent-routing-poc/ 
+├── .env 
+├── main.py 
 └── README.md
 
----
 
-## ⚙️ Installation & Setup
+## Setup & Installation
 
-1️⃣ **Clone the repository:**
+1. **Clone the repository:**
+    ```sh
+    git clone https://github.com/dips365/openai-learning-projects.git
+    cd openai-learning-projects/multi-agent-routing-poc
+    ```
 
-```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+2. **Create a virtual environment (optional but recommended):**
+    ```sh
+    python -m venv venv
+    # On Unix/macOS:
+    source venv/bin/activate
+    # On Windows:
+    venv\Scripts\activate
+    ```
 
-2️⃣ Create a virtual environment (optional but recommended):
+3. **Install dependencies:**
+    ```sh
+    pip install openai python-dotenv
+    ```
 
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+4. **Configure your `.env` file:**
 
-3️⃣ Install dependencies:
-pip install openai python-dotenv
+    Example for Azure OpenAI:
+    ```
+    OPENAI_API_TYPE=azure
+    ENDPOINT=https://<your-endpoint>.openai.azure.com/
+    API_VERSION=2024-12-01-preview
+    SUBSCRIPTION_KEY=<your-azure-openai-subscription-key>
+    DEPLOYMENT=<your-deployment-name>
+    ```
 
-4️⃣ Setup your .env file:
-OPENAI_API_TYPE=azure
-ENDPOINT=https://<your-endpoint>.openai.azure.com/
-API_VERSION=2024-02-15-preview
-SUBSCRIPTION_KEY=<your-azure-openai-subscription-key>
-DEPLOYMENT=<your-deployment-name>
+    For OpenAI API, set `OPENAI_API_KEY` instead.
 
-🚀 Running the Project
+## Usage
+
+Run the main script:
+
+```sh
 python main.py
+```
 
-Sample Output:
+Sample output:
+
+```
 Agent: game
 Answer: Here are three basic rules for cricket: ...
 
@@ -58,12 +75,15 @@ Answer: Japan is known for its beautiful places such as Kyoto, Mount Fuji, and T
 
 Agent: tech
 Answer: You can create a REST API in Python using frameworks like FastAPI or Flask...
+```
 
-📖 Learning Goals
-Build multi-agent LLM applications
-Use LLMs for classification and task routing
-Learn how to securely handle API keys and environment configuration
-Integrate OpenAI and Azure OpenAI
+How it Works
+```
+- The script loads environment variables for API credentials.
+- It defines three specialized agents with unique system prompts.
+- User queries are classified by a routing prompt and sent to the appropriate agent.
+- The selected agent generates a response using the OpenAI or Azure OpenAI API.
+```
 
-📜 License
+License
 This project is licensed under the MIT License.
